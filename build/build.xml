@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="javaftpclient" default="all" basedir=".">
+	
+	<property name="build.compiler" value="modern"/>
+	<property file="${basedir}/build.properties"/>
+	<property name="pro_home" value="${app_home}"/>
+	<property name="src.dir" value="${pro_home}/src"/>
+	<property name="classes.dir" value="${pro_home}/classes"/>
+	
+	<path id="classpath">
+		<pathelement location="${classes.dir}"/>
+		<fileset dir="${pro_home}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<target name="clean">
+		<delete dir="${classes.dir}"/>
+	</target>
+	<target name="all">
+		<mkdir dir="${classes.dir}"/>
+		<antcall target="config"/>
+		<antcall target="event"/>
+		<antcall target="gui"/>
+		<antcall target="main"/>
+		<antcall target="model"/>
+		<antcall target="tools"/>
+		<antcall target="util"/>
+		<antcall target="compileother"/>
+		<antcall target="makejar"/>
+	</target>
+	
+	<target name="compileother">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/**/*.java" encoding="UTF-8" deprecation="off"
+			debug="on" optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="config">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/config/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="event">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/event/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="gui">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/gui/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="main">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/main/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="model">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/model/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="tools">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/tools/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="util">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			includes="com/jfc/ftp/util/**/*.java" encoding="UTF-8" debug="on"
+			optimize="on" verbose="off">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="makejar">
+		<jar basedir="${classes.dir}" destfile="${pro_home}/jfc.jar"/>
+	</target>
+	
+	<target name="javadocs">
+		<javadoc packagenames="com.java.ftp.*" sourcepath="${pro_home}/src"
+			destdir="${pro_home}/docs/apidocs" private="true" author="true"
+			maxmemory="256m" use="true" windowtitle="JAVAFTPCLIENT Java API"
+			doctitle="JAVAFTPCLIENT"
+			bottom="SavageGarden">
+			<classpath refid="classpath"/>
+		</javadoc>
+	</target>
+</project>
